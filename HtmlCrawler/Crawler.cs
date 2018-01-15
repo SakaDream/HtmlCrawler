@@ -22,25 +22,25 @@ namespace HtmlCrawler
             Document = new HtmlWeb().Load(Url);
         }
 
-        public HtmlNode GetElementsByClass(string @class)
+        public IEnumerable<HtmlNode> GetElementsByClass(string @class)
         {
             if(Document == null)
                 Document = new HtmlWeb().Load(Url);
             return Document.DocumentNode
                 .Descendants()
-                .First(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains(@class));
+                .Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains(@class));
         }
 
-        public IEnumerable<HtmlNode> GetElementById(string id)
+        public HtmlNode GetElementById(string id)
         {
             if (Document == null)
                 Document = new HtmlWeb().Load(Url);
             return Document.DocumentNode
                 .Descendants()
-                .Where(d => d.Attributes.Contains("id") && d.Attributes["id"].Value.Contains(id));
+                .First(d => d.Attributes.Contains("id") && d.Attributes["id"].Value.Contains(id));
         }
 
-        public IEnumerable<HtmlNode> GetElementByName(string name)
+        public IEnumerable<HtmlNode> GetElementsByName(string name)
         {
             if (Document == null)
                 Document = new HtmlWeb().Load(Url);
